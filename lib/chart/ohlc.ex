@@ -226,9 +226,9 @@ defmodule Contex.OHLC do
   defp render_data(plot) do
     [dataset] <~ plot.mapping
 
-    Enum.reduce( dataset.data, [], fn row, rendered ->
+    Enum.reduce(dataset.data, [], fn row, rendered ->
       if rendered_row = maybe_render_row(plot, row) do
-        [ rendered_row | rendered]
+        [rendered_row | rendered]
       else
         rendered
       end
@@ -515,7 +515,7 @@ defmodule Contex.OHLC do
   defp fix_spacing(plot) do
     [dataset, column_map: [datetime: dt_column]] <~ plot.mapping
 
-    interval_count = fixed_interval_count( plot.options)
+    interval_count = fixed_interval_count(plot.options)
     width = get_option(plot, :width)
     tick_interval = get_option(plot, :timeframe)
     domain_min = get_option(plot, :domain_min)
@@ -551,10 +551,10 @@ defmodule Contex.OHLC do
   @doc """
   Computes the count of candles to be displayed based on plot options.
   """
-  @spec fixed_interval_count( keyword()) :: non_neg_integer()
-  def fixed_interval_count( opts) do
-    [ width, zoom] <~ opts
-    [ body_width, spacing] <~ @zoom_levels[ zoom]
+  @spec fixed_interval_count(keyword()) :: non_neg_integer()
+  def fixed_interval_count(opts) do
+    [width, zoom] <~ opts
+    [body_width, spacing] <~ @zoom_levels[zoom]
 
     border_width = (body_width > 0 && 2) || 1
     interval_width = body_width + spacing + border_width
@@ -580,7 +580,7 @@ defmodule Contex.OHLC do
     custom_y_scale = get_option(plot, :custom_y_scale)
 
     filter_opts =
-      if fixed_timescale?(plot) and !!get_option( plot, :y_scale_window) do
+      if fixed_timescale?(plot) and !!get_option(plot, :y_scale_window) do
         accessor_dt = accessors.datetime
         domain = plot.x_scale.nice_domain
 

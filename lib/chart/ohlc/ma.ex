@@ -72,7 +72,7 @@ defmodule Contex.OHLC.MA do
         Enum.filter(data, &OHLC.within_domain?(elem(&1, 0), domain))
       end)
 
-    with true <- !Enum.empty?( dataset.data) || [] do
+    with true <- !Enum.empty?(dataset.data) || [] do
       options = [
         mapping: %{x_col: "Date", y_cols: ["Average"]},
         stroke_width: "#{Integer.to_string(ma.width)}",
