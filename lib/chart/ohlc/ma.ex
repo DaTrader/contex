@@ -72,24 +72,26 @@ defmodule Contex.OHLC.MA do
         Enum.filter(data, &OHLC.within_domain?(elem(&1, 0), domain))
       end)
 
-    options = [
-      mapping: %{x_col: "Date", y_cols: ["Average"]},
-      stroke_width: "#{Integer.to_string(ma.width)}",
-      colour_palette: [ma.color],
-      show_x_axis: false,
-      show_y_axis: false,
-      x_transform: x_transform,
-      y_transform: y_transform
-    ]
+    with true <- !Enum.empty?( dataset.data) || [] do
+      options = [
+        mapping: %{x_col: "Date", y_cols: ["Average"]},
+        stroke_width: "#{Integer.to_string(ma.width)}",
+        colour_palette: [ma.color],
+        show_x_axis: false,
+        show_y_axis: false,
+        x_transform: x_transform,
+        y_transform: y_transform
+      ]
 
-    Plot.new(dataset, Contex.LinePlot, 100, 100, options)
-    |> Plot.to_svg()
-    |> elem(1)
-    |> List.flatten()
-    |> Enum.split_while(&(!String.starts_with?(&1, "<path")))
-    |> elem(1)
-    |> Enum.split_while(&(!String.ends_with?(&1, "</path>")))
-    |> then(&(elem(&1, 0) ++ List.wrap(List.first(elem(&1, 1)))))
+      Plot.new(dataset, Contex.LinePlot, 100, 100, options)
+      |> Plot.to_svg()
+      |> elem(1)
+      |> List.flatten()
+      |> Enum.split_while(&(!String.starts_with?(&1, "<path")))
+      |> elem(1)
+      |> Enum.split_while(&(!String.ends_with?(&1, "</path>")))
+      |> then(&(elem(&1, 0) ++ List.wrap(List.first(elem(&1, 1)))))
+    end
   end
 end
 
