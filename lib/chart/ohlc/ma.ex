@@ -63,6 +63,12 @@ defmodule Contex.OHLC.MA do
   end
 
   @doc false
+  @spec lag(t()) :: non_neg_integer()
+  def lag(ma) do
+    ma.period
+  end
+
+  @doc false
   @spec render(t(), Overlayable.RenderConfig.t()) :: [Overlayable.rendered_row()]
   def render(%__MODULE__{dataset: %Dataset{}} = ma, render_config) do
     [domain, x_transform, y_transform] <~ render_config
@@ -100,6 +106,10 @@ defimpl Contex.OHLC.Overlayable, for: Contex.OHLC.MA do
 
   def init(ma, ohlc) do
     MA.init(ma, ohlc)
+  end
+
+  def lag(ma) do
+    MA.lag(ma)
   end
 
   def render(ma, render_config) do

@@ -18,6 +18,12 @@ defprotocol Contex.OHLC.Overlayable do
   def init(overlay, ohlc)
 
   @doc """
+  Returns the interval count it lags behind the present.
+  """
+  @spec lag(t()) :: non_neg_integer()
+  def lag(overlay)
+
+  @doc """
   Renders overlay.
   """
   @spec render(t(), Overlayable.RenderConfig.t()) :: [rendered_row()]
