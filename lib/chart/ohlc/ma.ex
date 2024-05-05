@@ -102,7 +102,7 @@ defimpl Contex.OHLC.Overlayable, for: Contex.OHLC.MA do
     MA.init(ma, ohlc)
   end
 
-  def render(ma, ohlc) do
-    MA.render(ma, ohlc)
+  def render(ma, render_config) do
+    MA.render(ma, render_config)
   end
 end
